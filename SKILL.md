@@ -1,6 +1,6 @@
 ---
 name: mentor
-description: Turn any public figure into your private AI mentor. Give a name — auto-collect their real posts, speeches, and content from social platforms, extract their thinking framework and communication style, generate a SOUL.md that lets AI think and advise like them. Not generic advice — advice filtered through THEIR values, THEIR experience, THEIR way of seeing the world. 把任何公众人物变成你的私人 AI 导师。说一个名字，自动从社交平台采集 TA 的真实发言和内容，提取思维框架和表达风格，生成 SOUL.md 让 AI 像 TA 一样思考和给建议。不是通用建议——是经过 TA 的价值观、TA 的经验、TA 的世界观过滤过的建议。
+description: Turn any public figure into your private AI mentor. Give a name — auto-collect their real posts, speeches, and content from social platforms, extract their thinking framework and communication style, generate a MENTOR.md that lets AI think and advise like them. Not generic advice — advice filtered through THEIR values, THEIR experience, THEIR way of seeing the world. 把任何公众人物变成你的私人 AI 导师。说一个名字，自动从社交平台采集 TA 的真实发言和内容，提取思维框架和表达风格，生成 MENTOR.md 让 AI 像 TA 一样思考和给建议。不是通用建议——是经过 TA 的价值观、TA 的经验、TA 的世界观过滤过的建议。
 version: 1.0.0
 depends: manobrowser
 ---
@@ -45,7 +45,7 @@ depends: manobrowser
 
 **引导原则**：
 - 🎓 重点是**"TA 的思维方式帮你做决定"**，不是"模仿 TA 说话"
-- 🧠 区别于 Mimic：Mimic 是角色扮演（好玩），导师是**实用工具**（帮你思考）
+- 🧠 导师是**实用工具**（帮你思考），不是角色扮演（好玩）
 - 📊 强调数据驱动——不是 AI 想象的，是从真实数据统计的
 - 💡 用具体场景勾住用户——"遇到问题问导师"
 
@@ -69,14 +69,14 @@ depends: manobrowser
 - "TA 不可能这么说"（风格不对）
 - "听着挺有道理但换谁说都一样"（没有差异化思维框架）
 
-### 与 Mimic 的区别
+### 导师 vs 角色扮演
 
-| 维度 | Mimic 🧬 | 导师 🎓 |
-|------|----------|---------|
-| **目的** | 角色扮演，好玩 | 辅助决策，实用 |
+| 维度 | 角色扮演类工具 | 导师 🎓 |
+|------|-------------|---------|
+| **目的** | 好玩、娱乐 | 辅助决策，实用 |
 | **场景** | "模仿罗永浩聊天" | "用罗永浩的方式分析我的产品" |
-| **输出** | SOUL.md（人格文件） | MENTOR.md（导师文件） |
-| **侧重点** | 说话风格（怎么说） | 思维框架（怎么想） |
+| **输出** | 人格文件（说话风格） | MENTOR.md（思维框架） |
+| **侧重点** | 怎么说 | **怎么想** |
 | **对话模式** | 闲聊/娱乐 | 咨询/问答/分析 |
 | **加载后行为** | 变成那个人 | 作为顾问待命 |
 
@@ -238,7 +238,7 @@ mcp__{实例名}__{工具短名}
 
 ## 3. 思维提炼（⚠️ 核心步骤）
 
-**这是导师区别于 Mimic 的关键。** Mimic 提取"说话方式"，导师提取"思考方式"。
+**这是导师的核心。** 不是提取"说话方式"，而是提取"思考方式"。
 
 ### 思维框架提取
 
@@ -452,30 +452,29 @@ mentor-data/
 
 ```
 mentor/
-├── SKILL.md                      ← 本文件：主流程
-├── README.md                     ← 项目介绍
-├── scripts/
-│   └── check_manobrowser.sh      ← ManoBrowser 检测脚本
+├── SKILL.md                    ← 本文件
+├── README.md
+├── scripts/                    ← 采集和分析脚本
+│   ├── check_manobrowser.sh    ← ManoBrowser 连接检测
+│   ├── weibo_collect.py        ← 微博批量采集
+│   ├── weibo_style_analysis.py ← 微博风格分析
+│   ├── bilibili_subtitle_batch.py ← B站字幕批量提取
+│   ├── speech_analysis.py      ← 口语风格统计
+│   ├── douyin_whisper_batch.py ← 抖音语音转文字（需 Whisper）
+│   └── subtitle_character_filter.py ← 字幕角色过滤
 ├── templates/
-│   └── mentor_template.md        ← 导师文件模板
+│   ├── mentor_template.md      ← MENTOR.md 模板
+│   └── raw_template.json       ← 原始数据模板
 ├── examples/
-│   └── xiaokai_mentor.md         ← 示例：虚构导师
-├── guides/
-│   ├── ANALYSIS.md               ← 人格分析方法论
-│   ├── SOCIAL_MEDIA.md           ← 社交媒体采集指南
-│   ├── VIDEO_SUBTITLE.md         ← 视频字幕采集指南
-│   └── WIKI_QUOTES.md            ← 百科/语录采集指南
-└── docs/img/
-    └── feishu_qr.png             ← 社区群二维码
+│   └── xiaokai_mentor.md       ← 示例导师
+├── guides/                     ← 采集和分析方法论
+│   ├── ANALYSIS.md             ← 人格分析框架
+│   ├── SOCIAL_MEDIA.md         ← 社媒采集步骤
+│   ├── VIDEO_SUBTITLE.md       ← 字幕采集方法
+│   └── WIKI_QUOTES.md          ← 百科/语录采集
+├── {platform}-deep-profile-collect/ ← 5个平台采集子模块
+└── workflows/                  ← MCP 执行脚本
 ```
-
-### guides 来源
-
-guides 目录中的文件直接复用 Mimic 的方法论，因为底层数据采集和分析框架相同：
-- `ANALYSIS.md`：人格分析框架（导师在此基础上额外关注思维框架和决策模式）
-- `SOCIAL_MEDIA.md`：微博/B站/抖音等平台的采集详细步骤
-- `VIDEO_SUBTITLE.md`：B站字幕批量提取、Whisper 语音转文字
-- `WIKI_QUOTES.md`：百科和语录采集
 
 ---
 
