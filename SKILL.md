@@ -232,7 +232,23 @@ mcp__{实例名}__{工具短名}
 2. **只要原创内容**：过滤转发/广告/推广
 3. **优先长内容**：一条深度分析 > 十条日常闲聊
 4. **数量目标**：微博 200-500 条 + 视频字幕 10-30 期 = 优质导师
-5. **保存原始数据**：写入 `mentor-data/{名字}_raw.json`
+5. **保存原始数据**：见下方「数据持久化」
+
+### 数据持久化（⚠️ 必须执行）
+
+**每个平台/来源采集完毕后，立即将全量原始数据写入本地文件。每完成一个就保存一个。**
+
+```
+mentor-data/{目标人名}/
+├── weibo.json           ← 微博原创内容
+├── bilibili.json        ← B站字幕/内容
+├── douyin.json           ← 抖音内容
+├── wiki_quotes.json     ← 百科/语录
+├── other_sources.json   ← 其他来源
+└── metadata.json        ← 采集时间、来源、数量
+```
+
+**执行方式**：采集脚本/子 Skill 将数据返回到上下文后，**你必须立即将完整数据写入对应文件**。保存完整内容，不是摘要。这些原始数据是后续思维提炼的基础，也可在刷新导师时做增量对比。
 
 ---
 
@@ -438,42 +454,8 @@ mentor-data/
 🎤 罗永浩 → 产品设计、用户体验
 📊 刘润 → 商业分析、战略决策
 🧠 万维钢 → 科学思维、认知升级
-🎭 半佛仙人 → 毒舌分析、防骗视角
 
-💡 用法：
-"用罗永浩的方式看看我的产品"
-"让刘润分析一下这个商业模式"
-"万维钢和半佛仙人对这件事有什么不同看法？"
-```
-
----
-
-## 目录结构
-
-```
-mentor/
-├── SKILL.md                    ← 本文件
-├── README.md
-├── scripts/                    ← 采集和分析脚本
-│   ├── check_manobrowser.sh    ← ManoBrowser 连接检测
-│   ├── weibo_collect.py        ← 微博批量采集
-│   ├── weibo_style_analysis.py ← 微博风格分析
-│   ├── bilibili_subtitle_batch.py ← B站字幕批量提取
-│   ├── speech_analysis.py      ← 口语风格统计
-│   ├── douyin_whisper_batch.py ← 抖音语音转文字（需 Whisper）
-│   └── subtitle_character_filter.py ← 字幕角色过滤
-├── templates/
-│   ├── mentor_template.md      ← MENTOR.md 模板
-│   └── raw_template.json       ← 原始数据模板
-├── examples/
-│   └── xiaokai_mentor.md       ← 示例导师
-├── guides/                     ← 采集和分析方法论
-│   ├── ANALYSIS.md             ← 人格分析框架
-│   ├── SOCIAL_MEDIA.md         ← 社媒采集步骤
-│   ├── VIDEO_SUBTITLE.md       ← 字幕采集方法
-│   └── WIKI_QUOTES.md          ← 百科/语录采集
-├── {platform}-deep-profile-collect/ ← 5个平台采集子模块
-└── workflows/                  ← MCP 执行脚本
+💡 用法："用罗永浩的方式看看我的产品" / "让刘润分析一下这个商业模式"
 ```
 
 ---
