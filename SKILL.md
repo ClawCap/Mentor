@@ -236,19 +236,14 @@ mcp__{实例名}__{工具短名}
 
 ### 数据持久化（⚠️ 必须执行）
 
-**每个平台/来源采集完毕后，立即将全量原始数据写入本地文件。每完成一个就保存一个。**
+**所有 ClawCap Skill 共享 `clawcap-data/` 目录**，按人组织。导师目标人物的数据存到 `clawcap-data/{人名}/`：
 
-```
-mentor-data/{目标人名}/
-├── weibo.json           ← 微博原创内容
-├── bilibili.json        ← B站字幕/内容
-├── douyin.json           ← 抖音内容
-├── wiki_quotes.json     ← 百科/语录
-├── other_sources.json   ← 其他来源
-└── metadata.json        ← 采集时间、来源、数量
-```
+- `clawcap-data/{人名}/{platform}.json` 存在 + < 7天 → **直接复用**
+- 不存在 → 正常采集
 
-**执行方式**：采集脚本/子 Skill 将数据返回到上下文后，**你必须立即将完整数据写入对应文件**。保存完整内容，不是摘要。这些原始数据是后续思维提炼的基础，也可在刷新导师时做增量对比。
+**每个来源采集完毕后，立即将全量原始数据写入 `clawcap-data/{人名}/{source}.json`**（如 `weibo.json`、`bilibili.json`、`wiki_quotes.json`）。保存完整内容，不是摘要。报告输出到 `clawcap-data/reports/mentor_{人名}.md`。
+
+> 💡 如果用户之前用相亲照妖镜扫过同一个人的公开主页，数据已在 `clawcap-data/{人名}/` 里了，可部分复用。
 
 ---
 
