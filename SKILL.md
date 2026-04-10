@@ -243,7 +243,7 @@ mcp__{实例名}__{工具短名}
 
 **每个来源采集完毕后，立即将全量原始数据写入 `clawcap-data/{人名}/{source}.json`**（如 `weibo.json`、`bilibili.json`、`wiki_quotes.json`）。保存完整内容，不是摘要。报告输出到 `clawcap-data/reports/mentor_{人名}.md`。
 
-> 💡 如果用户之前用相亲照妖镜扫过同一个人的公开主页，数据已在 `clawcap-data/{人名}/` 里了，可部分复用。
+> 💡 如果用户之前用 Dating 扫过同一个人的公开主页，数据已在 `clawcap-data/{人名}/` 里了，可部分复用。
 
 ---
 
